@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Camera, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -13,26 +13,46 @@ const PersonalDetails = () => {
         mobile: '',
         altMobile: '',
         email: '',
-        altEmail: ''
+        altEmail: '',
+        dob: '',
+        profileImage: null
     });
 
+    const handlePhotoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, profileImage: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     useEffect(() => {
-        const storedProfile = JSON.parse(localStorage.getItem('majdhur_contractor_profile') || '{}');
+        const userType = localStorage.getItem('majdhur_user_type') || 'User';
+        const profileKey = userType === 'Contractor' ? 'majdhur_contractor_profile' : 'majdhur_user_profile';
+        const storedProfile = JSON.parse(localStorage.getItem(profileKey) || '{}');
+        const loginPhone = localStorage.getItem('majdhur_user_phone') || '';
+
         setFormData(prev => ({
             ...prev,
-            ...storedProfile
+            ...storedProfile,
+            mobile: storedProfile.mobile || storedProfile.phone || loginPhone
         }));
     }, []);
 
     const handleSave = () => {
         if (!formData.firstName.trim()) {
-            toast.error('First name is required'); // Assuming toast is imported or available, otherwise use alert
+            toast.error('First name is required');
             return;
         }
 
-        const storedProfile = JSON.parse(localStorage.getItem('majdhur_contractor_profile') || '{}');
-        localStorage.setItem('majdhur_contractor_profile', JSON.stringify({ ...storedProfile, ...formData }));
-        toast.success('Personal details updated!'); // Ensure toast is imported
+        const userType = localStorage.getItem('majdhur_user_type') || 'User';
+        const profileKey = userType === 'Contractor' ? 'majdhur_contractor_profile' : 'majdhur_user_profile';
+        const storedProfile = JSON.parse(localStorage.getItem(profileKey) || '{}');
+        localStorage.setItem(profileKey, JSON.stringify({ ...storedProfile, ...formData }));
+        toast.success('Personal details updated!');
         navigate(-1);
     };
 
@@ -47,6 +67,33 @@ const PersonalDetails = () => {
             </div>
 
             <div className="flex-1 p-6 overflow-y-auto pb-24">
+                {/* Profile Photo */}
+                <div className="flex flex-col items-center gap-4 mb-8">
+                    <div className="relative">
+                        <input
+                            type="file"
+                            id="profilePhotoInput"
+                            className="hidden"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
+                        />
+                        <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden border-2 border-white shadow-md">
+                            {formData.profileImage ? (
+                                <img src={formData.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                                <User className="w-12 h-12 text-gray-400" />
+                            )}
+                        </div>
+                        <button
+                            onClick={() => document.getElementById('profilePhotoInput').click()}
+                            className="absolute bottom-0 right-0 bg-yellow-400 p-2 rounded-full shadow-lg border-2 border-white hover:bg-yellow-500 transition-colors"
+                        >
+                            <Camera className="w-4 h-4 text-gray-900" />
+                        </button>
+                    </div>
+                    <p className="text-sm font-medium text-gray-500">Change Profile Photo</p>
+                </div>
+
                 <h2 className="text-lg font-bold text-gray-900 mb-6">Enter personal detail</h2>
 
                 <div className="space-y-4">
@@ -92,6 +139,16 @@ const PersonalDetails = () => {
                             <option>Female</option>
                             <option>Other</option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                        <input
+                            type="date"
+                            className="w-full bg-gray-200 border-none rounded-xl p-4 text-gray-900 font-medium focus:ring-2 focus:ring-yellow-400"
+                            value={formData.dob || ''}
+                            onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+                        />
                     </div>
 
                     <div>

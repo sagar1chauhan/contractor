@@ -9,17 +9,21 @@ const LabourPersonalDetails = () => {
         name: '',
         phone: '',
         language: 'Hindi',
-        photo: null
+        photo: null,
+        gender: 'Male',
+        dob: ''
     });
 
     useEffect(() => {
         const savedData = JSON.parse(localStorage.getItem('majdhur_labour_profile') || '{}');
-        const loginPhone = localStorage.getItem('majdhur_user_phone') || ''; // Assuming this key exists from login/registration
+        const loginPhone = localStorage.getItem('majdhur_user_phone') || '';
 
         setFormData(prev => ({
             ...prev,
             ...savedData,
-            phone: savedData.phone || loginPhone // Prioritize saved phone, then login phone
+            phone: savedData.phone || loginPhone,
+            gender: savedData.gender || 'Male',
+            dob: savedData.dob || ''
         }));
     }, []);
 
@@ -50,7 +54,7 @@ const LabourPersonalDetails = () => {
         const allLabours = JSON.parse(localStorage.getItem('majdhur_all_labours') || '[]');
         const updatedLabours = allLabours.map(labour => {
             if (labour.phone === formData.phone) {
-                return { ...labour, name: formData.name, image: formData.photo };
+                return { ...labour, ...formData, name: formData.name, image: formData.photo };
             }
             return labour;
         });
@@ -129,6 +133,31 @@ const LabourPersonalDetails = () => {
                                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
                             />
                         </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">Gender</label>
+                        <select
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleChange}
+                            className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-400 appearance-none text-gray-700"
+                        >
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">Date of Birth</label>
+                        <input
+                            type="date"
+                            name="dob"
+                            value={formData.dob}
+                            onChange={handleChange}
+                            className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-700"
+                        />
                     </div>
 
                     <div>

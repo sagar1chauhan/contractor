@@ -45,6 +45,8 @@ const CompleteProfile = () => {
             return;
         }
 
+        localStorage.setItem('majdhur_user_type', formData.userType);
+
         if (formData.userType === 'User') {
             // Save to localStorage for persistence
             localStorage.setItem('majdhur_user_profile', JSON.stringify(formData));
@@ -60,6 +62,7 @@ const CompleteProfile = () => {
             const existingProfile = JSON.parse(localStorage.getItem('majdhur_labour_profile') || '{}');
             const labourProfile = {
                 ...existingProfile,
+                ...formData,
                 name: `${formData.firstName} ${formData.lastName}`.trim(),
                 photo: formData.profileImage,
                 gender: formData.gender,

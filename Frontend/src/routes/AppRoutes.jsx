@@ -29,6 +29,8 @@ import LabourPersonalDetails from '../modules/labour/pages/LabourPersonalDetails
 import LabourWorkDetails from '../modules/labour/pages/LabourWorkDetails';
 import LabourLegalDetails from '../modules/labour/pages/LabourLegalDetails';
 import LabourPaymentDetails from '../modules/labour/pages/LabourPaymentDetails';
+import JobDetails from '../modules/labour/pages/JobDetails';
+import AppliedJobs from '../modules/labour/pages/AppliedJobs';
 
 // Utils
 import ProtectedRoute from './ProtectedRoute';
@@ -190,6 +192,22 @@ const AppRoutes = () => {
                 element={
                     <ProtectedRoute role="Labour">
                         <LabourPaymentDetails />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/labour/job-details/:id"
+                element={
+                    <ProtectedRoute role="Labour">
+                        <JobDetails />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/labour/applied-jobs"
+                element={
+                    <ProtectedRoute role="Labour">
+                        <AppliedJobs />
                     </ProtectedRoute>
                 }
             />
