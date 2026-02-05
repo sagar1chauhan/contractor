@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { User, ChevronRight, Briefcase, Activity, Shield, CreditCard, LogOut, Phone, HelpCircle, FileText, Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import LabourBottomNav from '../components/LabourBottomNav';
 
 const MenuItem = ({ icon, label, link, onClick, textColor = "text-gray-900", extra }) => {
     const navigate = useNavigate();
@@ -43,7 +42,7 @@ const LabourSettings = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col pb-24">
+        <div className="min-h-screen bg-gray-50 flex flex-col">
             <div className="p-6 bg-white shadow-sm sticky top-0 z-10 flex items-center gap-3">
                 <button onClick={() => navigate('/labour/dashboard')}>
                     <ChevronRight className="w-6 h-6 text-gray-900 rotate-180" />
@@ -100,8 +99,6 @@ const LabourSettings = () => {
                     <MenuItem icon={<LogOut className="w-5 h-5 text-red-500" />} label="Log out" link="/" textColor="text-red-500" />
                 </div>
             </div>
-
-            <LabourBottomNav />
         </div>
     );
 };

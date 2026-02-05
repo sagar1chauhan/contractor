@@ -76,7 +76,6 @@ const CompleteProfile = () => {
             const existingProfile = JSON.parse(localStorage.getItem('majdhur_labour_profile') || '{}');
             const labourProfile = {
                 ...existingProfile,
-                ...formData,
                 name: `${formData.firstName} ${formData.lastName}`.trim(),
                 photo: formData.profileImage,
                 gender: formData.gender,
