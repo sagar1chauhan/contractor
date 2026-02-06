@@ -65,17 +65,7 @@ const UserDashboard = () => {
                     Get Instant Access to India's Leading Companies projects with Just One Click!
                 </p>
 
-                {/* Video Card */}
-                <div className="flex justify-center mb-8 relative w-full pt-[56.25%] rounded-2xl shadow-lg overflow-hidden bg-black">
-                    <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=0&controls=1&rel=0"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
-                </div>
+
 
                 {/* Filter Row */}
                 <div className="flex justify-between items-center mb-6 z-20 relative">
