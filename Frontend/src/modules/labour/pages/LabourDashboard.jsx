@@ -2,6 +2,7 @@ import { Search, Building2, Phone, Briefcase, MapPin, Clock } from 'lucide-react
 import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LabourBottomNav from '../components/LabourBottomNav';
 
 const LabourDashboard = () => {
     const navigate = useNavigate();
@@ -245,6 +246,7 @@ const LabourDashboard = () => {
                     ))}
                 </div>
             </div>
+            <LabourBottomNav />
         </div>
     );
 };

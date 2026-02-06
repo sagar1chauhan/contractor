@@ -90,9 +90,7 @@ const LabourSettings = () => {
                     <MenuItem icon={<HelpCircle className="w-5 h-5" />} label="About us" link="#" />
                 </div>
 
-                <div className="bg-white mt-4">
-                    <MenuItem icon={<FileText className="w-5 h-5" />} label="App manual" link="#" />
-                </div>
+
 
                 <div className="bg-white mt-4">
                     <MenuItem icon={<Trash2 className="w-5 h-5 text-red-500" />} label="Delete Profile" link="#" textColor="text-red-500" />
